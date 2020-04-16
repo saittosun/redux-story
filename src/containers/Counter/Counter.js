@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 import { connect } from 'react-redux';
+import * as actionTypes from '../../store/action';
 
 class Counter extends Component {
     // state = {
@@ -70,12 +71,12 @@ const mapDispatchToProps = dispatch => {
     return {
         // This property(onIncrementCounter) now holds a value of course and that value should be an anonymous function. 
         // what I want to do here, this function here will in the end be available through this property and therefore, whenever this property is executed as a function, for example, if we assign it to an onClick handler, then this dispatch method here is going to get executed.
-        onIncrementCounter: () => dispatch({type: 'INCREMENT'}),
-        onDecrementCounter: () => dispatch({type: 'DECREMENT'}),
-        onAddCounter: () => dispatch({type: 'ADD', val: 10}),
-        onSubtractCounter: () => dispatch({type: 'SUBTRACT', val: 15}),
-        onStoreResult: () => dispatch({type: 'STORE_RESULT'}),
-        onDeleteResult: (id) => dispatch({type: 'DELETE_RESULT', resultElId: id})
+        onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
+        onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
+        onAddCounter: () => dispatch({type: actionTypes.ADD, val: 10}),
+        onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
+        onStoreResult: () => dispatch({type: actionTypes.STORE_RESULT}),
+        onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
     }
 }
 
