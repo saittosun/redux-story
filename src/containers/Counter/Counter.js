@@ -33,7 +33,8 @@ class Counter extends Component {
             <div>
                 {/* <CounterOutput value={this.state.counter} /> */}
                 <CounterOutput value={this.props.ctr} />
-                <CounterControl label="Increment" clicked={() => this.counterChangedHandler( 'inc' )} />
+                {/* <CounterControl label="Increment" clicked={() => this.counterChangedHandler( 'inc' )} /> */}
+                <CounterControl label="Increment" clicked={this.props.onIncrementCounter} />
                 <CounterControl label="Decrement" clicked={() => this.counterChangedHandler( 'dec' )}  />
                 <CounterControl label="Add 5" clicked={() => this.counterChangedHandler( 'add', 5 )}  />
                 <CounterControl label="Subtract 5" clicked={() => this.counterChangedHandler( 'sub', 5 )}  />
@@ -48,7 +49,16 @@ const mapStateToProps = state => {// the state stored in redux as the     input 
         // this state here again, will be given to you by react-redux which of course will reach out to your redux state which of course in turn is the state you set up here, so there will be a counter property available.
         ctr: state.counter
     }
-
 }
 
-export default connect(mapStateToProps)(Counter);
+// here I'll say which kind of actions do I want to dispatch in this container. This also stores a function which will receive the dispatch function which we can execute as an argument, just as we have dispatch available on the store here, if we directly access the store, the react-redux package gives us well basically this helper function (dispatch) which will call dispatch on the store behind the scenes. We then here also return a javascript object where we can define some prop names which will hold a reference to a function which should eventually get executed to dispatch an action.
+const mapDispatchToProps = dispatch => {
+    return {
+        // This property(onIncrementCounter) now holds a value of course and that value should be an anonymous function. 
+        onIncrementCounter: () => {// what I want to do here, this function here will in the end be available through this property and therefore, whenever this property is executed as a function, for example, if we assign it to an onClick handler, then this dispatch method here is going to get executed.
+            return dispatch({type: 'INCREMENT'})
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
