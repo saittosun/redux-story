@@ -6,27 +6,27 @@ import CounterOutput from '../../components/CounterOutput/CounterOutput';
 import { connect } from 'react-redux';
 
 class Counter extends Component {
-    state = {
-        counter: 0
-    }
+    // state = {
+    //     counter: 0
+    // }
 
-    counterChangedHandler = ( action, value ) => {
-        switch ( action ) {
-            case 'inc':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
-                break;
-            case 'dec':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
-                break;
-            case 'add':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
-                break;
-            case 'sub':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
-                break;
-            default:
-        }
-    }
+    // counterChangedHandler = ( action, value ) => {
+    //     switch ( action ) {
+    //         case 'inc':
+    //             this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
+    //             break;
+    //         case 'dec':
+    //             this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
+    //             break;
+    //         case 'add':
+    //             this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
+    //             break;
+    //         case 'sub':
+    //             this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
+    //             break;
+    //         default:
+    //     }
+    // }
 
     render () {
         return (
@@ -35,9 +35,9 @@ class Counter extends Component {
                 <CounterOutput value={this.props.ctr} />
                 {/* <CounterControl label="Increment" clicked={() => this.counterChangedHandler( 'inc' )} /> */}
                 <CounterControl label="Increment" clicked={this.props.onIncrementCounter} />
-                <CounterControl label="Decrement" clicked={() => this.counterChangedHandler( 'dec' )}  />
-                <CounterControl label="Add 5" clicked={() => this.counterChangedHandler( 'add', 5 )}  />
-                <CounterControl label="Subtract 5" clicked={() => this.counterChangedHandler( 'sub', 5 )}  />
+                <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}  />
+                <CounterControl label="Add 5" clicked={this.props.onAddCounter}  />
+                <CounterControl label="Subtract 5" clicked={this.props.onSubtractCounter}  />
             </div>
         );
     }
@@ -55,9 +55,11 @@ const mapStateToProps = state => {// the state stored in redux as the     input 
 const mapDispatchToProps = dispatch => {
     return {
         // This property(onIncrementCounter) now holds a value of course and that value should be an anonymous function. 
-        onIncrementCounter: () => {// what I want to do here, this function here will in the end be available through this property and therefore, whenever this property is executed as a function, for example, if we assign it to an onClick handler, then this dispatch method here is going to get executed.
-            return dispatch({type: 'INCREMENT'})
-        }
+        // what I want to do here, this function here will in the end be available through this property and therefore, whenever this property is executed as a function, for example, if we assign it to an onClick handler, then this dispatch method here is going to get executed.
+        onIncrementCounter: () => dispatch({type: 'INCREMENT'}),
+        onDecrementCounter: () => dispatch({type: 'DECREMENT'}),
+        onAddCounter: () => dispatch({type: 'ADD'}),
+        onSubtractCounter: () => dispatch({type: 'SUBTRACT'})
     }
 }
 
