@@ -40,7 +40,7 @@ class Counter extends Component {
                 <CounterControl label="Add 10" clicked={this.props.onAddCounter}  />
                 <CounterControl label="Subtract 15" clicked={this.props.onSubtractCounter}  />
                 <hr/>
-                <button onClick={this.props.onStoreResult}>Store Result</button>
+                <button onClick={() => this.props.onStoreResult(this.props.ctr)}>Store Result</button>
                 <ul>
                     {this.props.storedResults.map(strResult => {
                         return (
@@ -61,8 +61,10 @@ class Counter extends Component {
 const mapStateToProps = state => {// the state stored in redux as the     input and returns a javascript object which is a map of prop names and slices of the state stored in redux.
     return {
         // this state here again, will be given to you by react-redux which of course will reach out to your redux state which of course in turn is the state you set up here, so there will be a counter property available.
-        ctr: state.counter,
-        storedResults: state.results
+
+        // bu kisim combinereducer i anlatirken yazildi: now we will have one state in the end but to avoid naming conflicts, redux adds one level of nesting where it has one state object but basically with these keys here, in combined reducers as properties which give us access to these sub states for these feature areas, you could say. 
+        ctr: state.ctr.counter,
+        storedResults: state.res.results
     }
 }
 
@@ -75,7 +77,7 @@ const mapDispatchToProps = dispatch => {
         onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
         onAddCounter: () => dispatch({type: actionTypes.ADD, val: 10}),
         onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
-        onStoreResult: () => dispatch({type: actionTypes.STORE_RESULT}),
+        onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
         onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
     }
 }
