@@ -1,42 +1,9 @@
 // jshint esversion: 6
-export const INCREMENT = 'INCREMENT';
-export const DECREMENT = 'DECREMENT';
-export const ADD = 'ADD';
-export const SUBTRACT = 'SUBTRACT';
-export const STORE_RESULT = 'STORE_RESULT';
-export const DELETE_RESULT = 'DELETE_RESULT';
-
-// this is our first action creator already, it returns, it creates therefore an action and an action just needs to have a type, so that's the bare minimum action we can create.
-export const increment = () => {
-  return {
-    type: INCREMENT
-  }
-}
-
-export const decrement = () => {
-  return {
-    type: DECREMENT
-  }
-}
-
-export const add = (value) => {
-  return {
-    type: ADD,
-    val: value
-  }
-}
-
-export const subtract = (value) => {
-  return {
-    type: SUBTRACT,
-    val: value
-  }
-}
-
+import * as actionTypes from './actionTypes';
 // this will now still be the action creator. that is my synchronous action creator. 
 export const saveResult = res => {
   return {
-    type: STORE_RESULT,
+    type: actionTypes.STORE_RESULT,
     result: res
   }
 }
@@ -54,7 +21,7 @@ export const storeResult = (res) => {
 
 export const deleteResult = (resElId) => {
   return {
-    type: DELETE_RESULT,
+    type: actionTypes.DELETE_RESULT,
     resultElId: resElId
   }
 }
