@@ -1,5 +1,5 @@
 // jshint esversion: 6
-import * as actionTypes from '../action';
+import * as actionTypes from '../actions/action';
 
 const initialState = {
   counter: 0
