@@ -1,14 +1,15 @@
 // jshint esversion: 6
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-
 import counterReducer from './store/reducers/counter';
 import resultReducer from './store/reducers/result';
-import { Provider } from 'react-redux';
 
 //this will be the name of my middleware. It will get the store as an input, this is the case because we will soon use a specific method provided by redux to connect our own middleware to the store and this method provided by redux will eventually execute our middleware function and give us the store.
 const logger = store => {
@@ -39,7 +40,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // With that we're creating a store successfully with our own reducer, just like we learned before in the nodeJS file.
 // this function as the names suggests allows us to add our own middleware to the store.
 // we got a set up where we should be able to connect our browser extension to the store running in our Javascript code.
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)));
 
 ReactDOM.render(
   // Provider is a helper component which allows us to kind of inject our store into the react components.
