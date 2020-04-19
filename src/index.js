@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
 import counterReducer from './store/reducers/counter';
 import resultReducer from './store/reducers/result';
@@ -32,10 +32,14 @@ const rootReducer = combineReducers({
   res: resultReducer
 });
 
+// redux devtools, compose is a little bit similar to combineReducers, combineReducers allows us to combine well reducers, compose allows us to combine enhancers, applyMiddleware is only for middlewares if we have other enhancers like the store dev tools, we need to use compose to compose a set of enhancers with both the dev tools features and our middleware.
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 // This store should be created right before our application or when our application starts, so the index.js file is a great place, this is where we mount our app component to the dom, so creating the store here also makes a lot of sense.
 // With that we're creating a store successfully with our own reducer, just like we learned before in the nodeJS file.
 // this function as the names suggests allows us to add our own middleware to the store.
-const store = createStore(rootReducer, applyMiddleware(logger));
+// we got a set up where we should be able to connect our browser extension to the store running in our Javascript code.
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger)));
 
 ReactDOM.render(
   // Provider is a helper component which allows us to kind of inject our store into the react components.
