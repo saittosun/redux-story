@@ -1,9 +1,15 @@
 // jshint esversion: 6
 import * as actionTypes from '../actions/actionTypes';
+import updateObject from '../utility';
 
 const initialState = {
   results: []
 };
+
+const deleteResult = (state, action) => {
+  const updatedArray = state.result.filter(result => result.id !== action.resultElId);
+  return updateObject(state, {results: updatedArray});
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -23,11 +29,12 @@ const reducer = (state = initialState, action) => {
 
       // second method
       // you take your original array state results and call the filter method. If filter returns a new array, doesn't touch the old one, returns a new one. Filter takes a function as an input, the function is executed on each element in the array, it determines whether this element fulfils a certain condition to make it into the new array which is returned by filter or not.
-      const updatedArray = state.results.filter(result => result.id !== action.resultElId)
-      return {
-        ...state,
-        results: updatedArray// onceden burada bu yaziyordu =>new array, which is a copy of the old array but updated and since we copied it, we never touch the old array.
-      }
+      // const updatedArray = state.results.filter(result => result.id !== action.resultElId)
+      // return {
+      //   ...state,
+      //   results: updatedArray// onceden burada bu yaziyordu =>new array, which is a copy of the old array but updated and since we copied it, we never touch the old array.
+      // }
+      return deleteResult(state, action);
     default:
       break;
   }
