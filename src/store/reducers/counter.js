@@ -1,5 +1,6 @@
 // jshint esversion: 6
 import * as actionTypes from '../actions/actionTypes';
+import updateObject from '../utility';
 
 const initialState = {
   counter: 0
@@ -25,15 +26,16 @@ const reducer = (state = initialState, action) => {
         counter: state.counter - 1
       }
     case actionTypes.ADD:
-      return {
-        ...state,
-        counter: state.counter + 10
-      }
+      return updateObject(state, {counter: state.counter + 10});
+    // case actionTypes.SUBTRACT:
+    //   return {
+    //     ...state,
+    //     counter: state.counter - 15
+    //   }
     case actionTypes.SUBTRACT:
-      return {
-        ...state,
+      return updateObject(state, {
         counter: state.counter - 15
-      }
+      })
     default:
       break;
   }
